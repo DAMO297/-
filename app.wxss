@@ -1,0 +1,154 @@
+/**app.wxss**/
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 200rpx 0;
+  box-sizing: border-box;
+} 
+
+/* 全局样式 */
+page {
+  --primary-color: #007AFF;
+  --secondary-color: #5856D6;
+  --success-color: #34C759;
+  --warning-color: #FF9500;
+  --error-color: #FF3B30;
+  --text-primary: #000000;
+  --text-secondary: #666666;
+  --text-tertiary: #999999;
+  --background: #F5F5F7;
+  --card-background: #FFFFFF;
+  --border-radius: 16rpx;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --card-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.08);
+  
+  background: var(--background);
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+/* 通用容器 */
+.container {
+  min-height: 100vh;
+  padding: 24rpx;
+  box-sizing: border-box;
+}
+
+/* 卡片样式 */
+.card {
+  background: var(--card-background);
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-shadow);
+  padding: 32rpx;
+  margin: 24rpx;
+  transition: var(--transition);
+}
+
+.card:active {
+  transform: scale(0.99);
+}
+
+/* 按钮样式 */
+.btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24rpx 40rpx;
+  border-radius: 40rpx;
+  font-size: 32rpx;
+  font-weight: 500;
+  transition: var(--transition);
+  overflow: hidden;
+  background: var(--primary-color);
+  color: #fff;
+}
+
+.btn:active {
+  transform: scale(0.98);
+  opacity: 0.9;
+}
+
+.btn .icon {
+  margin-right: 12rpx;
+  font-size: 36rpx;
+}
+
+/* 输入框样式 */
+.input {
+  background: #F5F5F7;
+  border-radius: 12rpx;
+  padding: 24rpx;
+  font-size: 28rpx;
+  transition: var(--transition);
+}
+
+.input:focus {
+  background: #FFFFFF;
+  box-shadow: 0 0 0 2rpx var(--primary-color);
+}
+
+/* 动画类 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* 渐变背景 */
+.gradient-bg {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+}
+
+/* 毛玻璃效果 */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* 图标 */
+.icon-btn {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--card-background);
+  box-shadow: var(--card-shadow);
+  transition: var(--transition);
+}
+
+.icon-btn:active {
+  transform: scale(0.9);
+}
+
+/* 数字显示相关的全局样式 */
+.number-value {
+  font-feature-settings: "tnum";  /* 使用等宽数字 */
+  font-variant-numeric: tabular-nums;
+  transition: font-size 0.3s ease;
+  text-align: center;
+}
+
+.number-value.long {  /* 4-5位数 */
+  font-size: 90%;
+}
+
+.number-value.very-long {  /* 6位数及以上 */
+  font-size: 80%;
+  letter-spacing: -1rpx;
+} 
