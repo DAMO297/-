@@ -1,0 +1,45 @@
+<view class="container">
+  <!-- 顶部统计区域 -->
+  <view class="stats-cards">
+    <view class="stat-card">
+      <text class="stat-icon">🧘</text>
+      <text class="stat-value">{{totalPunchDays}}</text>
+      <text class="stat-label">累计打卡</text>
+    </view>
+    <view class="stat-card">
+      <text class="stat-icon">⏱️</text>
+      <text class="stat-value">{{totalPracticeTime}}</text>
+      <text class="stat-label">练习时长(分钟)</text>
+    </view>
+    <view class="stat-card">
+      <text class="stat-icon">💰</text>
+      <text class="stat-value">¥{{totalReward}}</text>
+      <text class="stat-label">累计奖励</text>
+    </view>
+  </view>
+
+  <!-- 导出按钮 -->
+  <button class="export-btn" bindtap="exportRecords">导出打卡记录</button>
+
+  <!-- 打卡记录列表 -->
+  <view class="records-section">
+    <view class="section-title">打卡记录</view>
+    <view class="records-list">
+      <block wx:if="{{punchRecords.length > 0}}">
+        <view class="record-card" wx:for="{{punchRecords}}" wx:key="index">
+          <view class="record-header">
+            <text class="record-date">{{item.date}} {{item.time}}</text>
+            <text class="record-reward">+¥{{item.reward}}</text>
+          </view>
+          <view class="record-content">
+            <text class="practice-time">练习时长：{{item.practiceTime}}分钟</text>
+            <text class="record-note" wx:if="{{item.content}}">{{item.content}}</text>
+          </view>
+        </view>
+      </block>
+      <view class="no-records" wx:else>
+        暂无打卡记录
+      </view>
+    </view>
+  </view>
+</view> 

@@ -1,0 +1,135 @@
+<view class="container">
+  <!-- 打卡卡片 -->
+  <view class="punch-card">
+    <view class="card-header">
+      <text class="title">今日打卡</text>
+      <text class="subtitle">记录你的练习时光</text>
+    </view>
+
+    <block wx:if="{{!todayPunched}}">
+      <view class="form-group">
+        <view class="input-group">
+          <text class="label">练习时长（分钟）</text>
+          <input 
+            type="number" 
+            class="input" 
+            placeholder="请输入练习时长" 
+            value="{{practiceTime}}"
+            bindinput="onTimeInput"
+          />
+        </view>
+
+        <view class="reward-box">
+          <text class="reward-label">预计奖励</text>
+          <text class="reward-value">¥{{reward}}</text>
+        </view>
+
+        <view class="input-group">
+          <text class="label">打卡内容</text>
+          <textarea 
+            class="textarea" 
+            placeholder="记录一下今天的练习内容吧~" 
+            value="{{content}}"
+            bindinput="onContentInput"
+          />
+        </view>
+      </view>
+
+      <button 
+        class="punch-btn {{!isLogin ? 'disabled' : ''}}" 
+        bindtap="handlePunch"
+      >
+        打卡
+      </button>
+    </block>
+    
+    <block wx:else>
+      <view class="punched-tip">
+        <text class="tip-text">今日已完成打卡</text>
+        <text class="tip-reward">获得奖励 ¥{{reward}}</text>
+      </view>
+    </block>
+  </view>
+
+  <!-- 排行榜卡片，独立于打卡卡片 -->
+  <view class="ranking-card" wx:if="{{todayPunched}}">
+    <view class="ranking-title">
+      <text class="title-text">排行榜 TOP5</text>
+    </view>
+    <view class="ranking-list">
+      <view class="ranking-item" wx:for="{{rankings}}" wx:key="_id">
+        <view class="rank-number">{{index + 1}}</view>
+        <view class="rank-info">
+          <text class="user-name">{{item.nickName}}</text>
+          <view class="rank-stats">
+            <text class="stat-item">
+              <text class="label">打卡</text>
+              <text class="value">{{item.totalPunchDays}}次</text>
+            </text>
+            <text class="stat-item">
+              <text class="label">累计</text>
+              <text class="value">{{item.totalPracticeTime}}分钟</text>
+            </text>
+            <text class="stat-item">
+              <text class="label">奖励</text>
+              <text class="value">¥{{item.totalReward}}</text>
+            </text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 登录弹窗 -->
+  <view class="login-modal {{showLoginModal ? 'show' : ''}}" bindtap="handleModalTap">
+    <view class="modal-content" catchtap="handleContentTap">
+      <view class="modal-header">
+        <text class="modal-title">{{isRegister ? '注册账号' : '账号登录'}}</text>
+      </view>
+      <view class="modal-body">
+        <view class="input-item">
+          <text class="icon">👤</text>
+          <input 
+            class="login-input"
+            type="text" 
+            placeholder="请输入账号" 
+            value="{{username}}"
+            bindinput="onUsernameInput"
+          />
+        </view>
+        <view class="input-item">
+          <text class="icon">🔒</text>
+          <input 
+            class="login-input"
+            type="password" 
+            placeholder="请输入密码" 
+            value="{{password}}"
+            bindinput="onPasswordInput"
+          />
+        </view>
+        <view class="remember-password" bindtap="toggleRememberPassword">
+          <icon type="{{rememberPassword ? 'success' : 'circle'}}" size="18" color="{{rememberPassword ? '#007AFF' : '#999'}}" />
+          <text>记住密码</text>
+        </view>
+        <view class="input-item" wx:if="{{isRegister}}">
+          <text class="icon">🔒</text>
+          <input 
+            class="login-input"
+            type="password" 
+            placeholder="请确认密码" 
+            value="{{confirmPassword}}"
+            bindinput="onConfirmPasswordInput"
+          />
+        </view>
+      </view>
+      <view class="modal-footer">
+        <button class="btn confirm" bindtap="handleLoginOrRegister">
+          {{isRegister ? '注册' : '登录'}}
+        </button>
+      </view>
+      <view class="switch-action" bindtap="switchLoginRegister">
+        {{isRegister ? '已有账号，去登录' : '没有账号？去注册'}}
+      </view>
+    </view>
+  </view>
+</view> 
